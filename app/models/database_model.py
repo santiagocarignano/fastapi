@@ -123,6 +123,6 @@ async def get_table(table_name):
         }
         return TableSchema(**table_info)
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Database does not exists.")
+        raise HTTPException(status_code=500, detail="Table does not exists.")
     finally:
         await db.close()

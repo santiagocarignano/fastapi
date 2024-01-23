@@ -1,9 +1,7 @@
 from models import database_model
 from serializers.database_serializer import (
     TableName,
-    DatabaseCredentials,
-    ResponseConnection,
-    DatabaseSchema,
+    DatabaseCredentials
 )
 from pydantic import ValidationError
 from fastapi import HTTPException
