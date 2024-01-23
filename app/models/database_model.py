@@ -2,7 +2,11 @@ from dotenv import load_dotenv
 import asyncpg
 from typing import Optional
 from fastapi import HTTPException, status
-from serializers.database_serializer import ResponseConnection, DatabaseSchema, TableSchema
+from serializers.database_serializer import (
+    ResponseConnection,
+    DatabaseSchema,
+    TableSchema,
+)
 
 load_dotenv()
 
@@ -35,7 +39,10 @@ async def login_to_database(username, password, host, db_name):
     try:
         connection = await DBManager.get_db_connection()
         await connection.close()
-        return ResponseConnection(message="Logged into the database, you can now make queries", status_code=status.HTTP_200_OK) 
+        return ResponseConnection(
+            message="Logged into the database, you can now make queries",
+            status_code=status.HTTP_200_OK,
+        )
     except HTTPException as e:
         raise e
 

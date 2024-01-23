@@ -1,5 +1,10 @@
 from models import database_model
-from serializers.database_serializer import TableName, DatabaseCredentials,ResponseConnection, DatabaseSchema
+from serializers.database_serializer import (
+    TableName,
+    DatabaseCredentials,
+    ResponseConnection,
+    DatabaseSchema,
+)
 from pydantic import ValidationError
 from fastapi import HTTPException
 
@@ -30,6 +35,8 @@ async def schema():
 
 async def table(table_name):
     try:
-        return await database_model.get_table(TableName(table_name=table_name).table_name)
+        return await database_model.get_table(
+            TableName(table_name=table_name).table_name
+        )
     except ValidationError as e:
         raise HTTPException(status_code=400, detail=str(e))
