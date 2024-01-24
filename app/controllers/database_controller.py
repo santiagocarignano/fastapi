@@ -1,7 +1,7 @@
 from models import database_model
 from serializers.database_serializer import (
-    TableName,
-    DatabaseCredentials
+    TableNameSerializer,
+    DatabaseCredentialSerializer
 )
 from pydantic import ValidationError
 from fastapi import HTTPException
@@ -9,7 +9,7 @@ from fastapi import HTTPException
 
 async def login(login_credentials):
     try:
-        login_data = DatabaseCredentials(**login_credentials)
+        login_data = DatabaseCredentialSerializer(**login_credentials)
     except ValidationError as e:
         raise HTTPException(
             status_code=422, detail="Unvalid data, please check the documentation."
@@ -34,7 +34,7 @@ async def schema():
 async def table(table_name):
     try:
         return await database_model.get_table(
-            TableName(table_name=table_name).table_name
+            TableNameSerializer(table_name=table_name).table_name
         )
     except ValidationError as e:
         raise HTTPException(status_code=400, detail=str(e))

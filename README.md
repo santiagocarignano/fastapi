@@ -1,4 +1,6 @@
-## FastAPI 
+## FastAPI
+
+### API Deployment and Usage
 
 The following repository deals with an API using FastAPI and a PostgreSQL database.
 
@@ -47,3 +49,47 @@ To run the test, execute:
 cd app
 pytest test.py
 ```
+
+### FastAPI Diagram
+
+![Alt text](api_diagram.png)
+
+
+### FastAPI Endpoints description
+
+Login Endpoint:
+Path: /api/v1/login
+Method: POST
+Input: User credentials (username, password, host, db_name)
+Function: Allow users to use the database creating a object.
+
+Endpoint to Retrieve Database Schema:
+Path: /api/v1/retrieve-schema
+Method: GET
+Input: None
+Function: Returns the database schema associated with the stored credentials.
+
+Endpoint to Search a Table:
+Path: /api/v1/tables/{table_name}
+Method: GET
+Input: Table name
+Function: Searches and returns information about a specific table within the database.
+
+
+### DataModel for PostgreSQL database.
+
+Data Model
+
+Table users:
+id: Primary key, autoincremental integer.
+username: Text string, must be unique and not null.
+password: Text string, not null. Should store a hash of the password, not the plaintext password.
+email: Text string, must be unique and not null.
+created_at: Timestamp, the time and date the user was created, with time zone.
+
+Table cars:
+id: Primary key, autoincremental integer.
+brand: Text string, not null.
+model: Text string, not null.
+year: Text string, must be unique and not null (Note: if you expect to have more than one car of the same year, this field should not be unique).
+created_at: Timestamp, the time and date of creation of the car record, with time zone.

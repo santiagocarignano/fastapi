@@ -3,8 +3,8 @@ import asyncpg
 from typing import Optional
 from fastapi import HTTPException, status
 from serializers.database_serializer import (
-    ResponseConnection,
-    DatabaseSchema,
+    ResponseConnectionSerializer,
+    DatabaseSchemaSerializer,
     TableSchema,
 )
 
@@ -39,7 +39,7 @@ async def login_to_database(username, password, host, db_name):
     try:
         connection = await DBManager.get_db_connection()
         await connection.close()
-        return ResponseConnection(
+        return ResponseConnectionSerializer(
             message="Logged into the database, you can now make queries",
             status_code=status.HTTP_200_OK,
         )
@@ -77,7 +77,7 @@ async def get_db_schema():
                 }
                 for column in columns
             ]
-        return DatabaseSchema(**schema_info)
+        return DatabaseSchemaSerializer(**schema_info)
     except Exception as e:
         raise HTTPException(
             status_code=500, detail="Failure to connect to the database."
